@@ -219,6 +219,10 @@ type Fault struct {
 	Detail      string `xml:"detail"`
 }
 
-func (f *Fault) String() string {
+func (f Fault) String() string {
 	return fmt.Sprintf("[%s]: %s | Detail: %s", f.Code, f.Description, f.Detail)
+}
+
+func (f Fault) Error() string {
+	return f.String()
 }

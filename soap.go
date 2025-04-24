@@ -270,16 +270,6 @@ func (p *process) doRequest(url string) ([]byte, error) {
 		p.Client.config.Logger.LogResponse(p.Request.Method, dump)
 	}
 
-	if resp.StatusCode < 200 || resp.StatusCode >= 400 {
-		if !(p.Client.config != nil && p.Client.config.Dump) {
-			_, err := io.Copy(io.Discard, resp.Body)
-			if err != nil {
-				return nil, err
-			}
-		}
-		return nil, errors.New("unexpected status code: " + resp.Status)
-	}
-
 	return io.ReadAll(resp.Body)
 }
 
